@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import br.com.alura.aluraesporte.R
 import br.com.alura.aluraesporte.ui.recyclerview.adapter.ListaPagamentosAdapter
 import br.com.alura.aluraesporte.ui.viewmodel.ComponentesVisuais
@@ -37,7 +35,7 @@ class ListaPagamentosFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lista_pagamentos_recyclerview.adapter = adapter
-        viewModel.todos().observe(this, Observer {
+        viewModel.todos().observe(viewLifecycleOwner, {
             it?.let { pagamentosEncontrados ->
                 adapter.add(pagamentosEncontrados)
             }

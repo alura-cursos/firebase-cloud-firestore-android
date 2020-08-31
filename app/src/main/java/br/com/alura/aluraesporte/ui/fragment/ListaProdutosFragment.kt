@@ -31,7 +31,7 @@ class ListaProdutosFragment : BaseFragment() {
     }
 
     private fun buscaProdutos() {
-        viewModel.buscaTodos().observe(this, Observer { produtosEncontrados ->
+        viewModel.buscaTodos().observe(this, { produtosEncontrados ->
             produtosEncontrados?.let {
                 adapter.atualiza(it)
             }

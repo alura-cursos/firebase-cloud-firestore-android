@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import br.com.alura.aluraesporte.R
 import br.com.alura.aluraesporte.extensions.snackBar
@@ -13,7 +12,6 @@ import br.com.alura.aluraesporte.model.Usuario
 import br.com.alura.aluraesporte.ui.viewmodel.CadastroUsuarioViewModel
 import br.com.alura.aluraesporte.ui.viewmodel.ComponentesVisuais
 import br.com.alura.aluraesporte.ui.viewmodel.EstadoAppViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.cadastro_usuario.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -62,7 +60,7 @@ class CadastroUsuarioFragment : Fragment() {
     }
 
     private fun cadastra(usuario: Usuario) {
-        viewModel.cadastra(usuario).observe(viewLifecycleOwner, Observer {
+        viewModel.cadastra(usuario).observe(viewLifecycleOwner, {
             it?.let { recurso ->
                 if (recurso.dado) {
                     view?.snackBar("Cadastro realizado com sucesso")

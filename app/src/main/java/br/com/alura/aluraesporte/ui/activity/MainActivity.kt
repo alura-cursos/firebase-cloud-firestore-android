@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                                                       destination,
                                                       _ ->
             title = destination.label
-            viewModel.componentes.observe(this, Observer {
+            viewModel.componentes.observe(this, {
                 it?.let { temComponentes ->
                     if (temComponentes.appBar) {
                         supportActionBar?.show()

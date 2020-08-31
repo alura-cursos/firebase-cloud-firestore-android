@@ -59,7 +59,7 @@ class DetalhesProdutoFragment : BaseFragment() {
     }
 
     private fun buscaProduto() {
-        viewModel.produtoEncontrado.observe(this, Observer {
+        viewModel.produtoEncontrado.observe(viewLifecycleOwner, {
             it?.let { produto ->
                 detalhes_produto_nome.text = produto.nome
                 detalhes_produto_preco.text = produto.preco.formatParaMoedaBrasileira()

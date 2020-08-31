@@ -23,7 +23,7 @@ class MinhaContaFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.usuario.observe(viewLifecycleOwner, Observer {
+        viewModel.usuario.observe(viewLifecycleOwner, {
             it?.let {usuario ->
                 minha_conta_email.text = usuario.email
             }

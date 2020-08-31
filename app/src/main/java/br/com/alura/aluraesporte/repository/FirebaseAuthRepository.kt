@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.alura.aluraesporte.model.Usuario
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
-import java.lang.Exception
-import java.lang.IllegalArgumentException
 
 private const val TAG = "FirebaseAuthRepository"
 

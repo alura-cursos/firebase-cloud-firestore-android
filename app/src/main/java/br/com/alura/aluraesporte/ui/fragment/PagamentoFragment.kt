@@ -53,7 +53,7 @@ class PagamentoFragment : BaseFragment() {
     }
 
     private fun buscaProduto() {
-        viewModel.buscaProdutoPorId(produtoId).observe(this, Observer {
+        viewModel.buscaProdutoPorId(produtoId).observe(viewLifecycleOwner, {
             it?.let { produtoEncontrado ->
                 produtoEscolhido = produtoEncontrado
                 pagamento_preco.text = produtoEncontrado.preco
@@ -75,7 +75,7 @@ class PagamentoFragment : BaseFragment() {
     private fun salva(pagamento: Pagamento) {
         if (::produtoEscolhido.isInitialized) {
             viewModel.salva(pagamento)
-                .observe(this, Observer {
+                .observe(this, {
                     it?.dado?.let {
                         Toast.makeText(
                             context,

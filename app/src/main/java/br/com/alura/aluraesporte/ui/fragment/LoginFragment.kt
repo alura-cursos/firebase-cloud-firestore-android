@@ -68,7 +68,7 @@ class LoginFragment : Fragment() {
 
     private fun autentica(email: String, senha: String) {
         viewModel.autentica(Usuario(email, senha))
-            .observe(viewLifecycleOwner, Observer {
+            .observe(viewLifecycleOwner, {
                 it?.let { recurso ->
                     if (recurso.dado) {
                         vaiParaListaProdutos()
