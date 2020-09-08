@@ -1,13 +1,59 @@
 package br.com.alura.aluraesporte.repository
 
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import br.com.alura.aluraesporte.database.dao.ProdutoDAO
 import br.com.alura.aluraesporte.model.Produto
+import com.google.firebase.firestore.FirebaseFirestore
+import java.math.BigDecimal
 
-class ProdutoRepository(private val dao: ProdutoDAO) {
+private const val TAG = "ProdutoRepository"
+
+class ProdutoRepository(
+    private val dao: ProdutoDAO,
+    private val firestore: FirebaseFirestore
+) {
 
     fun buscaTodos(): LiveData<List<Produto>> = dao.buscaTodos()
 
     fun buscaPorId(id: Long): LiveData<Produto> = dao.buscaPorId(id)
+
+    private fun salva() {
+        val produto = Produto(nome = "Chuteira", preco = BigDecimal("129.99"))
+        val produtoMapeado = mapOf<String, Any>(
+            "nome" to produto.nome,
+            "preco" to produto.preco.toDouble()
+        )
+
+        firestore.collection("produtos")
+            .add(produtoMapeado)
+            .addOnSuccessListener {
+                Log.i(TAG, "onCreate: produto salvo ${it?.id}")
+            }
+    }
+
+    fun buscaTodosFirestore(): LiveData<List<Produto>> {
+        val liveData: MutableLiveData<List<Produto>> = MutableLiveData<List<Produto>>()
+        firestore.collection("produtos")
+            .get()
+            .addOnSuccessListener {
+                it?.let { snapshot ->
+                    val produtos = mutableListOf<Produto>()
+                    for (documento in snapshot.documents) {
+                        Log.i(TAG, "onCreate: produto encontrado ${documento.data}")
+                        documento.data?.let { dados ->
+                            val nome: String = dados["nome"] as String
+                            val preco: Double = dados["preco"] as Double
+                            val produto = Produto(nome = nome, preco = BigDecimal(preco))
+                            produtos.add(produto)
+                        }
+                    }
+                    liveData.value = produtos
+                }
+            }
+        return liveData
+    }
 
 }
