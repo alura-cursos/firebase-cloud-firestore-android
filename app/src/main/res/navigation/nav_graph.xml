@@ -16,6 +16,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/acao_listaProdutos_para_formularioProduto"
+            app:destination="@id/formularioProduto"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/detalhesProduto"
@@ -101,4 +108,9 @@
         android:name="br.com.alura.aluraesporte.ui.fragment.MinhaContaFragment"
         android:label="Minha conta"
         tools:layout="@layout/minha_conta" />
+    <fragment
+        android:id="@+id/formularioProduto"
+        android:name="br.com.alura.aluraesporte.ui.fragment.FormularioProdutoFragment"
+        android:label="Cadastro de produto"
+        tools:layout="@layout/formulario_produto"/>
 </navigation>

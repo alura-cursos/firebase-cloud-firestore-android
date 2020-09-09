@@ -55,6 +55,11 @@ class ListaProdutosFragment : BaseFragment() {
             appBar = true,
             bottomNavigation = true)
         configuraRecyclerView()
+        lista_produtos_fab.setOnClickListener {
+            val direcao = ListaProdutosFragmentDirections
+                .acaoListaProdutosParaFormularioProduto()
+            controlador.navigate(direcao)
+        }
     }
 
     private fun configuraRecyclerView() {
