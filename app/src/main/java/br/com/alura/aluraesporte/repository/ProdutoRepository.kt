@@ -68,6 +68,25 @@ class ProdutoRepository(
         return liveData
     }
 
+    fun buscaTodosFirestoreEmTempoReal(): LiveData<List<Produto>> {
+        val liveData = MutableLiveData<List<Produto>>()
+        firestore.collection("produtos")
+            .addSnapshotListener { s, _ ->
+                s?.let { snapshot ->
+                    val produtos = mutableListOf<Produto>()
+                    for (documento in snapshot.documents) {
+                        Log.i(TAG, "onCreate: produto encontrado em real ${documento.data}")
+                        val produtoDocumento = documento.toObject<ProdutoDocumento>()
+                        produtoDocumento?.let { produtoDocumentoNaoNulo ->
+                            produtos.add(produtoDocumentoNaoNulo.paraProduto())
+                        }
+                    }
+                    liveData.value = produtos
+                }
+            }
+        return liveData
+    }
+
     private class ProdutoDocumento(
         val nome: String = "",
         val preco: Double = 0.0
