@@ -8,6 +8,6 @@ import java.math.BigDecimal
 class Produto(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val nome: String,
-    val preco: BigDecimal
+    val nome: String = "",
+    val preco: BigDecimal = BigDecimal.ZERO
 )
