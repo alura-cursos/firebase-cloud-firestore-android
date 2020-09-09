@@ -102,6 +102,7 @@ val viewModelModule = module {
     viewModel<EstadoAppViewModel> { EstadoAppViewModel() }
     viewModel<CadastroUsuarioViewModel> { CadastroUsuarioViewModel(get()) }
     viewModel<MinhaContaViewModel> { MinhaContaViewModel(get()) }
+    viewModel<FormularioProdutoViewModel> {FormularioProdutoViewModel(get())}
 }
 
 val firebaseModule = module {

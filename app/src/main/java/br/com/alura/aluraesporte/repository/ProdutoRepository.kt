@@ -20,18 +20,26 @@ class ProdutoRepository(
 
     fun buscaPorId(id: Long): LiveData<Produto> = dao.buscaPorId(id)
 
-    private fun salva() {
-        val produto = Produto(nome = "Chuteira", preco = BigDecimal("129.99"))
-        val produtoMapeado = mapOf<String, Any>(
-            "nome" to produto.nome,
-            "preco" to produto.preco.toDouble()
+    fun salva(produto: Produto) : LiveData<Boolean> {
+        val liveData = MutableLiveData<Boolean>()
+//        val produtoMapeado = mapOf<String, Any>(
+//            "nome" to produto.nome,
+//            "preco" to produto.preco.toDouble()
+//        )
+        val produtoDocumento = ProdutoDocumento(
+            nome = produto.nome,
+            preco = produto.preco.toDouble()
         )
 
         firestore.collection("produtos")
-            .add(produtoMapeado)
+            .add(produtoDocumento)
             .addOnSuccessListener {
-                Log.i(TAG, "onCreate: produto salvo ${it?.id}")
+                liveData.value = true
             }
+            .addOnFailureListener {
+                liveData.value = false
+            }
+        return liveData
     }
 
     fun buscaTodosFirestore(): LiveData<List<Produto>> {
