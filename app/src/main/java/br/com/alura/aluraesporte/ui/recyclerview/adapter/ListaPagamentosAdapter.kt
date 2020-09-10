@@ -50,7 +50,7 @@ class ListaPagamentosAdapter(
         }
 
         fun vincula(pagamento: Pagamento) {
-            id.text = pagamento.id.toString()
+//            id.text = pagamento.id.toString()
             preco.text = pagamento.preco.formatParaMoedaBrasileira()
         }
 

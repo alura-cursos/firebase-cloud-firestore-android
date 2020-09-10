@@ -2,7 +2,6 @@ package br.com.alura.aluraesporte.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import br.com.alura.aluraesporte.database.dao.ProdutoDAO
 import br.com.alura.aluraesporte.model.Produto
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -11,11 +10,10 @@ import java.math.BigDecimal
 private const val COLECAO_FIRESTORE_PRODUTOS = "produtos"
 
 class ProdutoRepository(
-    private val dao: ProdutoDAO,
     private val firestore: FirebaseFirestore
 ) {
 
-    fun buscaPorId(id: Long): LiveData<Produto> = dao.buscaPorId(id)
+    fun buscaPorId(id: Long): LiveData<Produto> = TODO("não foi implementada a busca do produto por id")
 
     fun salva(produto: Produto): LiveData<Boolean> = MutableLiveData<Boolean>().apply {
         val produtoDocumento = ProdutoDocumento(
