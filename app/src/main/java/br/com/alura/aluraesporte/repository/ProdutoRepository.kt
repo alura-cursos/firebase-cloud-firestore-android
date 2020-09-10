@@ -21,14 +21,12 @@ class ProdutoRepository(
             preco = produto.preco.toDouble()
         )
 
-        firestore.collection(COLECAO_FIRESTORE_PRODUTOS)
-            .add(produtoDocumento)
-            .addOnSuccessListener {
-                value = true
-            }
-            .addOnFailureListener {
-                value = false
-            }
+        val documento = firestore.collection(COLECAO_FIRESTORE_PRODUTOS)
+            .document()
+
+        documento.set(produtoDocumento)
+
+        value = true
     }
 
     fun buscaTodos(): LiveData<List<Produto>> = MutableLiveData<List<Produto>>().apply {
