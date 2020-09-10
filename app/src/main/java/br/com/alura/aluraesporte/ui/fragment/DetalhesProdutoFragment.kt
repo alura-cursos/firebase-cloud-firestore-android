@@ -37,25 +37,15 @@ class DetalhesProdutoFragment : BaseFragment() {
         )
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_detalhes_produto, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         estadoAppViewModel.temComponentes = ComponentesVisuais(appBar = true)
         buscaProduto()
-        configuraBotaoComprar()
-    }
-
-    private fun configuraBotaoComprar() {
-        detalhes_produto_botao_comprar.setOnClickListener {
-            viewModel.produtoEncontrado.value?.let {
-                vaiParaPagamento()
-            }
-        }
-    }
-
-    private fun vaiParaPagamento() {
-        val direcao = DetalhesProdutoFragmentDirections
-            .acaoDetalhesProdutoParaPagamento(produtoId)
-        controlador.navigate(direcao)
     }
 
     private fun buscaProduto() {

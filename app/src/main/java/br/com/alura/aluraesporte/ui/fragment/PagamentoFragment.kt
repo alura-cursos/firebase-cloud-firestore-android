@@ -49,17 +49,6 @@ class PagamentoFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         estadoAppViewModel.temComponentes = ComponentesVisuais(appBar = true)
         configuraBotaoConfirmaPagamento()
-        buscaProduto()
-    }
-
-    private fun buscaProduto() {
-        viewModel.buscaProdutoPorId(produtoId).observe(viewLifecycleOwner, {
-            it?.let { produtoEncontrado ->
-                produtoEscolhido = produtoEncontrado
-                pagamento_preco.text = produtoEncontrado.preco
-                    .formatParaMoedaBrasileira()
-            }
-        })
     }
 
     private fun configuraBotaoConfirmaPagamento() {

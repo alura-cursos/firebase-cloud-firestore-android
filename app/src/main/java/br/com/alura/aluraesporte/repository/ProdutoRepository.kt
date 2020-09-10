@@ -13,7 +13,18 @@ class ProdutoRepository(
     private val firestore: FirebaseFirestore
 ) {
 
-    fun buscaPorId(id: Long): LiveData<Produto> = TODO("não foi implementada a busca do produto por id")
+    fun buscaPorId(id: String): LiveData<Produto> = MutableLiveData<Produto>().apply {
+        firestore.collection(COLECAO_FIRESTORE_PRODUTOS)
+            .document(id)
+            .addSnapshotListener { s, _ ->
+                s?.let { documento ->
+                    documento.toObject<ProdutoDocumento>()?.paraProduto(documento.id)
+                        ?.let { produto ->
+                            value = produto
+                        }
+                }
+            }
+    }
 
     fun salva(produto: Produto): LiveData<Boolean> = MutableLiveData<Boolean>().apply {
         val produtoDocumento = ProdutoDocumento(
@@ -35,7 +46,7 @@ class ProdutoRepository(
                 s?.let { snapshot ->
                     val produtos: List<Produto> = snapshot.documents
                         .mapNotNull { documento ->
-                            documento.toObject<ProdutoDocumento>()?.paraProduto()
+                            documento.toObject<ProdutoDocumento>()?.paraProduto(documento.id)
                         }
                     value = produtos
                 }
@@ -46,7 +57,8 @@ class ProdutoRepository(
         val nome: String = "",
         val preco: Double = 0.0
     ) {
-        fun paraProduto(): Produto = Produto(
+        fun paraProduto(id: String): Produto = Produto(
+            id = id,
             nome = nome,
             preco = BigDecimal(preco)
         )

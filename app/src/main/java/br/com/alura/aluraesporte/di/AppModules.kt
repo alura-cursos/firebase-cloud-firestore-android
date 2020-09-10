@@ -36,7 +36,7 @@ val uiModule = module {
 
 val viewModelModule = module {
     viewModel<ProdutosViewModel> { ProdutosViewModel(get()) }
-    viewModel<DetalhesProdutoViewModel> { (id: Long) -> DetalhesProdutoViewModel(id, get()) }
+    viewModel<DetalhesProdutoViewModel> { (id: String) -> DetalhesProdutoViewModel(id, get()) }
     viewModel<PagamentoViewModel> { PagamentoViewModel(get(), get()) }
     viewModel<LoginViewModel> { LoginViewModel(get()) }
     viewModel<EstadoAppViewModel> { EstadoAppViewModel() }

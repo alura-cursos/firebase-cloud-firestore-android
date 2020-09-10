@@ -11,7 +11,6 @@ class PagamentoViewModel(
     private val produtodRepository: ProdutoRepository) : ViewModel() {
 
     fun salva(pagamento: Pagamento) = pagamentoRepository.salva(pagamento)
-    fun buscaProdutoPorId(id: Long) = produtodRepository.buscaPorId(id)
 
     fun todos(): LiveData<List<Pagamento>> = pagamentoRepository.todos()
 
