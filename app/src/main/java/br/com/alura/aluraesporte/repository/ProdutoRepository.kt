@@ -3,6 +3,7 @@ package br.com.alura.aluraesporte.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.alura.aluraesporte.model.Produto
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import java.math.BigDecimal
@@ -19,7 +20,7 @@ class ProdutoRepository(
             .document(id)
             .addSnapshotListener { s, _ ->
                 s?.let { documento ->
-                    documento.toObject<ProdutoDocumento>()?.paraProduto(documento.id)
+                    converteParaProduto(documento)
                         ?.let { produto ->
                             value = produto
                         }
@@ -49,7 +50,7 @@ class ProdutoRepository(
                 s?.let { snapshot ->
                     val produtos: List<Produto> = snapshot.documents
                         .mapNotNull { documento ->
-                            documento.toObject<ProdutoDocumento>()?.paraProduto(documento.id)
+                            converteParaProduto(documento)
                         }
                     value = produtos
                 }
@@ -63,6 +64,9 @@ class ProdutoRepository(
 
         value = true
     }
+
+    private fun converteParaProduto(documento: DocumentSnapshot) : Produto? =
+        documento.toObject<ProdutoDocumento>()?.paraProduto(documento.id)
 
     private class ProdutoDocumento(
         val nome: String = "",
