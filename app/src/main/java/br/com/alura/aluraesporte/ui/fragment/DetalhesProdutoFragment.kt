@@ -3,6 +3,7 @@ package br.com.alura.aluraesporte.ui.fragment
 import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.alura.aluraesporte.R
@@ -40,6 +41,17 @@ class DetalhesProdutoFragment : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_detalhes_produto, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_detalhes_produto_altera -> {
+                DetalhesProdutoFragmentDirections
+                    .acaoDetalhesProdutoParaFormularioProduto(produtoId)
+                    .let(controlador::navigate)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -9,4 +9,6 @@ class FormularioProdutoViewModel(private val repository: ProdutoRepository) : Vi
 
     fun salva(produto: Produto): LiveData<Boolean> = repository.salva(produto)
 
+    fun buscaPorId(id: String): LiveData<Produto> = repository.buscaPorId(id)
+
 }
